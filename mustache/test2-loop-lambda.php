@@ -2,7 +2,6 @@
 require_once '../lib/Mustache/Autoloader.php';
 Mustache_Autoloader::register();
 
-$engine = new Mustache_Engine();
 
 $items = array();
 for ( $n=0; $n <= 1000; ++$n ) {
@@ -20,6 +19,7 @@ for ( $n=0; $n <= 1000; ++$n ) {
 		$index = $helper->render($text);
 		return $items[$index];
 	};
+	$engine = new Mustache_Engine();
 	$html = @$engine->render('<div id="{{ id }}">{{# items }}<div id="{{ . }}">{{# getvalues }}{{ . }}{{/ getvalues }}</div>{{/ items }}</div>', $vars );
 
 }

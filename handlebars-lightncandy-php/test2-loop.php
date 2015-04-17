@@ -8,7 +8,6 @@ for ( $n=0; $n <= 1000; ++$n ) {
 	$items['a'.mt_rand()] = time();
 }
 
-$time_start = microtime(true);
 // Rendered PHP of template
 $phpStr = LightnCandy::compile( '<div id="{{ id }}">{{# m_items }}<div id="{{ key }}">{{ val }}</div>{{/ m_items }}</div>' );
 // Store the template...
@@ -18,7 +17,11 @@ $phpStr = LightnCandy::compile( '<div id="{{ id }}">{{# m_items }}<div id="{{ ke
 //$renderer = include($php_inc);
 // Method 2 (potentially insecure):
 $renderer = LightnCandy::prepare( $phpStr );
+
+$time_start = microtime(true);
 for ( $n=0; $n <= 1000; ++$n ) {
+	$key = array_rand( $items );
+	$items[$key] = 'b'.mt_rand();
 	$vars['id'] = "divid";
 	$vars['body'] = 'my div\'s body';
 	$m_items = array();

@@ -1,0 +1,1 @@
+<div id="{{ $id }}">{{ BEGIN m_items }}<div id="{{ $key }}">{{ $val }}</div>{{ END }}</div>
