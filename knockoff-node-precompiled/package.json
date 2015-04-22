@@ -1,7 +1,0 @@
-{
-	"name": "knockoffbench",
-	"dependencies": {
-		"knockoff": "x.x.x",
-		"tassembly": "x.x.x"
-	}
-}
