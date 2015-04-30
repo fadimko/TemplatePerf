@@ -132,7 +132,7 @@ class LightnCandy {
         $bhelpers = self::exportHelper($context, 'blockhelpers');
 
         // Return generated PHP code string.
-        return "<?php return function (\$in) {
+        return "return function (\$in) {
     \$cx = Array(
         'flags' => Array(
             'jstrue' => $flagJStrue,
@@ -145,8 +145,8 @@ class LightnCandy {
 $libstr
     );
     {$context['ops']['op_start']}'$code'{$context['ops']['op_end']}
-}
-?>";
+};
+";
     }
 
     /**
@@ -598,6 +598,10 @@ $libstr
         }
 
         return include('data://text/plain,' . urlencode($php));
+    }
+
+    public static function prepareFile($php) {
+        return "<?php " . $php . "?>";
     }
 
     /**

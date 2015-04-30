@@ -3,15 +3,10 @@ require_once '../lib/Twig/Autoloader.php';
 Twig_Autoloader::register();
 
 
-$loader = new Twig_Loader_Filesystem('templates');
-$twig = new Twig_Environment( $loader );
-
 $items = array();
 for ( $n=0; $n <= 1000; ++$n ) {
 	$items['a'.mt_rand()] = time();
 }
-
-
 
 $time_start = microtime(true);
 for ( $n=0; $n <= 1000; ++$n ) {
@@ -20,6 +15,8 @@ for ( $n=0; $n <= 1000; ++$n ) {
 	$vars['items'] = $items;
 	$vars['id'] = "divid";
 	$vars['body'] = 'my div\'s body';
+$loader = new Twig_Loader_Filesystem('templates');
+$twig = new Twig_Environment( $loader );
 	$html = $twig->render( 'test2_multidiv.html', $vars );
 }
 echo "time: " . ( microtime(true) - $time_start ) . "\n";
