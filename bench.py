@@ -5,6 +5,7 @@ import os
 
 phpport = 9490
 hhvmport = 9491
+php7port = 9492
 _iterationsNum = 20
 
 def runTest (engine, testSuiteDir, testSuiteName, iterationsNum=_iterationsNum, printAllIterations=False):
@@ -18,6 +19,8 @@ def runTest (engine, testSuiteDir, testSuiteName, iterationsNum=_iterationsNum, 
         port = hhvmport
         #os.system ("killall hhvm")
         #os.system ("sudo /usr/bin/hhvm --mode daemon -vServer.Type=fastcgi");
+    elif engine == "PHP7":
+        port = 9492
 
     # cgi-fcgi allows to make a request to php-fpm
     # grep string "time: <number>" from stdout, then get number with awk
@@ -59,6 +62,15 @@ def runTest (engine, testSuiteDir, testSuiteName, iterationsNum=_iterationsNum, 
 
         if printAllIterations: print
         print "  {0}: avg: {1:<8.4f} min: {2:<8.4f} max: {3:<8.4f} 1st: {4:<8.4f} 2nd: {5:<8.4f} 3rd: {6:<8.4f}, {7} iterations".format (testFile.ljust (25), sum / iterationsNum, min, max, res1, res2, res3, iterationsNum)
+
+
+runTest ("HHVM", "twignocache", "Twig String (No Cache)")
+runTest ("HHVM", "twignocache_file", "Twig File (No Cache)")
+runTest ("PHP7", "twignocache", "Twig String (No Cache)")
+runTest ("PHP7", "twignocache_file", "Twig File (No Cache)")
+runTest ("PHP", "twignocache", "Twig String (No Cache)")
+runTest ("PHP", "twignocache_file", "Twig File (No Cache)")
+exit()
 
 runTest ("PHP", "Blitz", "Blitz")
 runTest ("PHP", "Blitz-file", "Blitz from file")
